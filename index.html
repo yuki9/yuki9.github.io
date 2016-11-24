@@ -10,7 +10,7 @@
   padding: 0;
 }
 body{
-  background-color: #00090f;
+  background-color: #ffffff;
 }
 </style>
 <body>
@@ -118,18 +118,6 @@ class Globe {
       const vertices = icosaGeom.vertices; // vec3
       const positions = new Float32Array(vertices.length * 3);
       const colors_base = [];
-      for (var i = 0; i < vertices.length; i++) {
-        vertices[i].toArray(positions, i * 3);
-        let color;
-        switch (i % 4) {
-          case 0: color = { h: 0.6, s: 0.72, v: 0.95 }; break;
-          case 1: color = { h: 0.37, s: 0.69, v: 0.65 }; break;
-          case 2: color = { h: 0.12, s: 0.98, v: 0.98 }; break;
-          case 3: color = { h: 0.0, s: 0.80, v: 1.0 }; break;
-          default: color = { h: 0.0, s: 0.80, v: 1.0 }
-        }
-        colors_base.push(color.h, color.s, color.v);
-      }
 
       const geometry = new THREE.BufferGeometry();
       geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
