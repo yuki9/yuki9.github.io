@@ -9,16 +9,34 @@
   margin: 0;
   padding: 0;
 }
+.font-img{
+/*bottom: 0%;
+left: 0%;
+    background-image: url("image/シンゴジラ.png");
+    background-size: cover;*/
+}
 body{
-  background-color: #ffffff;
+  background-color: #000000;
+  background-image: url("image/haikeiEva.jpg");
+  /* 画像を常に天地左右の中央に配置 */
+  background-position: center center;
+
+  /* 画像をタイル状に繰り返し表示しない */
+  background-repeat: no-repeat;
+
+  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
+  background-attachment: fixed;
+
+  /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+  background-size: cover;
 }
 </style>
 <body>
+<!--<div class="font-img"><img src="image/シンゴジラ.png"/></div>-->
 
 <div id="webgl-output"></div>
 
 <script src="./three.min.js"></script>
-
 
 <script id="vs" type="x-shader/x-vertex">
    attribute vec3 color;
@@ -49,8 +67,6 @@ body{
       gl_FragColor = vec4(custom_color, 1.0) * texture2D(texture, gl_PointCoord);
    }
 </script>
-
-
 <script>
 
 THREE.IcosahedronGeometry = function(radius, detail) {
@@ -88,7 +104,9 @@ class Globe {
   }
 
   init () {
-    { // renderer
+
+     //renderer
+    {
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true
@@ -98,22 +116,30 @@ class Globe {
       this.renderer.setSize( this.width, this.height );
       this.output.appendChild( this.renderer.domElement );
     }
-    { // scene
+
+     //シーン
+    {
       this.scene = new THREE.Scene();
-      this.scene.fog = new THREE.FogExp2(0x00090f, 0.05);
+      //this.scene.fog = new THREE.FogExp2(0x00090f, 0.05);
     }
-    { // lights
+
+    //ライト
+    {
       const ambientLight = new THREE.AmbientLight(0xffffff);
       this.scene.add(ambientLight);
     }
-    { // camera
+
+    //カメラ
+    {
       const perscamera = new THREE.PerspectiveCamera( 75, this.width / this.height, 0.1, 1000 ); // fov(視野角),aspect,near,far
       this.camera = perscamera;
-      // this.camera.position.set( 20, 20, 20 );
+      //this.camera.position.set( 20, 20, 20 );
       this.camera.position.z = 20;
       this.camera.lookAt( this.scene.position );
     }
-    { // vertex points
+
+    //頂点
+    {
       const icosaGeom = new THREE.IcosahedronGeometry(8, 1); // radius, detail (+1で4倍)
       const vertices = icosaGeom.vertices; // vec3
       const positions = new Float32Array(vertices.length * 3);
@@ -143,18 +169,18 @@ class Globe {
 
       this.object = new THREE.Object3D();
 
-      // points
+      //points
       const points = new THREE.Points(geometry, shaderMat);
       this.object.add(points);
 
-      // lines
+      //lines
       this.object.add(new THREE.Mesh(
         icosaGeom,
         new THREE.MeshPhongMaterial({
           color: 0x0062b2,
           emissive: 0x0062b2,
           wireframe: true,
-          wireframeLinewidth: 1,
+          wireframeLinewidth: 10,
           fog: 1
         })
       ));
@@ -189,10 +215,10 @@ class Globe {
     requestAnimationFrame( () => {
       this.render();
     });
-
-    this.object.rotation.x += 0.0005;
-    this.object.rotation.y += 0.0005;
-    this.object.rotation.z += 0.0005;
+//回転スピード
+    this.object.rotation.x += 0.0300;
+    this.object.rotation.y += 0.0300;
+    this.object.rotation.z += 0.0300;
 
     this.renderer.render( this.scene, this.camera );
   }
@@ -204,7 +230,6 @@ class Globe {
   }
 }
 
-
 (() => {
 
   const globe = new Globe({
@@ -212,8 +237,6 @@ class Globe {
   });
 
 })();
-
-
 </script>
 </body>
 </html>
