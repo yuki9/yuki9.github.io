@@ -18,6 +18,7 @@ left: 0%;
 body{
   background-color: #000000;
   background-image: url("image/haikeiEva.jpg");
+  /*background-color: #fff;:/
   /* 画像を常に天地左右の中央に配置 */
   background-position: center center;
 
@@ -30,10 +31,10 @@ body{
   /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
   background-size: cover;
 }
+
 </style>
 <body>
 <!--<div class="font-img"><img src="image/シンゴジラ.png"/></div>-->
-
 <div id="webgl-output"></div>
 
 <script src="./three.min.js"></script>
@@ -120,7 +121,7 @@ class Globe {
      //シーン
     {
       this.scene = new THREE.Scene();
-      //this.scene.fog = new THREE.FogExp2(0x00090f, 0.05);
+      this.scene.fog = new THREE.FogExp2(0x00090f, 0.05);
     }
 
     //ライト
@@ -216,9 +217,9 @@ class Globe {
       this.render();
     });
 //回転スピード
-    this.object.rotation.x += 0.0300;
+    /*this.object.rotation.x += 0.0300;
     this.object.rotation.y += 0.0300;
-    this.object.rotation.z += 0.0300;
+    this.object.rotation.z += 0.0300;*/
 
     this.renderer.render( this.scene, this.camera );
   }
