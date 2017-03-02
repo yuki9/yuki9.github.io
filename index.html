@@ -121,7 +121,7 @@ class Globe {
      //シーン
     {
       this.scene = new THREE.Scene();
-      this.scene.fog = new THREE.FogExp2(0x00090f, 0.05);
+      /*this.scene.fog = new THREE.FogExp2(0x00090f, 0.05);*/
     }
 
     //ライト
@@ -217,9 +217,9 @@ class Globe {
       this.render();
     });
 //回転スピード
-    /*this.object.rotation.x += 0.0300;
-    this.object.rotation.y += 0.0300;
-    this.object.rotation.z += 0.0300;*/
+    this.object.rotation.x += 0.0200;
+    this.object.rotation.y += 0.0200;
+    this.object.rotation.z += 0.0200;
 
     this.renderer.render( this.scene, this.camera );
   }
